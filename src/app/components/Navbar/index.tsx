@@ -8,19 +8,41 @@ import { usePathname } from "next/navigation";
 export default function NavBar() {
     const pathname = usePathname();
   return (
-    <nav className=" z-50 fixed top-0 w-full bg-slate-400 h-10 justify-between items-center flex">
-    <Link href={'/'}><FaUserSecret className=" ml-4 left-6 text-3xl m-0"/></Link>
-      <div className=" flex w-40 justify-between">
-      <div>
-      <Link className={` ${pathname=='/tablepag'&& 'text-blue-500'}  hover:text-blue-500 hover:bg-slate-200 hover:rounded-full hover:px-1`} href={'/tablepag'}>Table</Link>
+    <nav style={{ zIndex: 50, position: 'fixed', top: 0, width: '100%', backgroundColor: '#6b7280', height: '2.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Link href={'/'}>
+        <FaUserSecret style={{
+          marginLeft: '0.75rem',
+          left: '0.375rem',
+          fontSize: '1.875rem',
+          margin: 0
+        }}/>
+      </Link>
+      <div style={{
+        display: 'flex',
+        width: '10rem',
+        justifyContent: 'space-between'
+      }}>
+        <div>
+          <Link style={{
+            color: pathname === '/tablepag' ? '#3b82f6' : '#f3f4f6',
+            cursor: 'pointer'
+          }} href={'/tablepag'}>
+            Table
+          </Link>
+        </div>
+        <div>
+          <Link style={{
+            color: pathname === '/calander' ? '#3b82f6' : '#f3f4f6',
+            cursor: 'pointer'
+          }} href={'/calander'}>
+            Calendar
+          </Link>
+        </div>
       </div>
-      <div>
-      <Link className={` ${pathname=='/calander'&& 'text-blue-500'}  hover:text-blue-500 hover:bg-slate-200 hover:rounded-full hover:px-1`} href={'/calander'}>Calendar</Link>
-      </div>
-      </div>
-      <div className=" mr-4">
-      <Input disabled type="search" placeholder="Search" suffix={<BiSearch/>}/>
+      <div style={{ marginRight: '0.75rem' }}>
+        <Input disabled type="search" placeholder="Search" suffix={<BiSearch />} />
       </div>
     </nav>
+    
   )
 }

@@ -41,7 +41,7 @@ export default function TablePage() {
       setData(updatedData);
       setLoading(false);
     }, 1000);
-    
+
   }
   const handleEdit = (evv: tablDataType) => {
     rowRef.current = evv;
@@ -136,17 +136,20 @@ const columns: TableProps<tablDataType>['columns'] = [
   };
 
   return (
-    <div className="p-3 z-20">
-      <div className="flex justify-between items-center mb-6 bg-sky-400 p-1 rounded-md">
-        <p className="ml-5 text-2xl">Users Table </p>
+   <div style={{ padding: '0.75rem', zIndex: 20 }}>
+  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', backgroundColor: '#60a5fa', padding: '0.25rem', borderRadius: '0.375rem' }}>
+    <p style={{
+      marginLeft: '1.25rem',
+      fontSize: '1.25rem',
+      color: '#1e3a8a'
+    }}>Users Table </p>
         <div>
           <Button onClick={() => setOpnModl(true)} icon={<BiPlusCircle size={20} color="blue" />}>
             Add Row
           </Button>
         </div>
       </div>
-      <div className="flex justify-center flex-col">
-        {data.length === 0 && !loading ? (
+      <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>        {data.length === 0 && !loading ? (
           <Spin />
         ) : (
           <Table loading={loading} scroll={{ x: 1300 }} bordered columns={columns} dataSource={data} />

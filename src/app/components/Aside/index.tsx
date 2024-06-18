@@ -26,29 +26,37 @@ export default function AsideComp() {
         };
     }, []);
   return (
-      <aside ref={sideRef} className=" h-screen fixed left-0 flex justify-center min-h-screen z-50" >
-         <div className=' z-40 top-0  p-1 w-12 bg-gray-800 min-h-screen'>
-            {
-                sideDir==='right'?
-                <FaChevronRight className=' cursor-pointer hover:bg-cyan-300 p-1 size-8 rounded-full' onClick={()=>setSideDir('left')} color="white"/>
-                :
-                <FaChevronLeft className=' cursor-pointer hover:bg-cyan-300 p-1 size-8 rounded-full' onClick={()=>setSideDir('right')} color="white"/>
-            }
-         <div className=' items-center flex flex-col mt-3 gap-8'>
-                <Link className=" text-gray-50 " href={'/'}><IoHome color={`${pathname=='/'?'blue':'white'}`} className=' cursor-pointer' size={22}/></Link>
-                <Link className=" text-gray-50 " href={'/tablepag'}><PiTableDuotone color={`${pathname=='/tablepag'?'blue':'white'}`} className=' cursor-pointer' size={22}/></Link>
-                <Link className=" text-gray-50 " href={'/calander'}><BiSolidCalendarCheck color={`${pathname=='/calander'?'blue':'white'}`} className=' cursor-pointer' size={22}/></Link>
-         </div>
-         </div>
-        <div  onClick={(ev)=>ev.preventDefault()} className={` p-3 left-0 z-0  fixed w-60 h-screen pl-12 bg-sky-300 transition-all duration-1000 ${sideDir === 'right' ? '-translate-x-full' : 'translate-x-12 w-60'}`} >
-            <div>
-                <div className=' hover:bg-cyan-700 rounded-full p-3 flex gap-3 items-center my-2 cursor-pointer'><IoSettingsOutline/>Setting</div>
-                <div className=' hover:bg-cyan-700 rounded-full p-3 flex gap-3 items-center my-2 cursor-pointer'><IoSettingsOutline/>Setting</div>
-                <div className=' hover:bg-cyan-700 rounded-full p-3 flex gap-3 items-center my-2 cursor-pointer'><IoSettingsOutline/>Setting</div>
-                <div className=' hover:bg-cyan-700 rounded-full p-3 flex gap-3 items-center my-2 cursor-pointer'><IoSettingsOutline/>Setting</div>
-                <div className=' hover:bg-cyan-700 rounded-full p-3 flex gap-3 items-center my-2 cursor-pointer'><IoSettingsOutline/>Setting</div>
-            </div>
+    <aside ref={sideRef} style={{ height: '100vh', position: 'fixed', left: 0, display: 'flex', justifyContent: 'center', minHeight: '100vh', zIndex: 50 }}>
+    <div style={{ zIndex: 40, top: 0, padding: '0.25rem', width: '3rem', backgroundColor: '#2D3748', minHeight: '100vh' }}>
+      {
+        sideDir === 'right' ?
+        <FaChevronRight style={{ cursor: 'pointer', backgroundColor: '#6B7280', padding: '0.25rem', fontSize: '1.25rem', borderRadius: '50%' }} onClick={() => setSideDir('left')} color="white" />
+        :
+        <FaChevronLeft style={{ cursor: 'pointer', backgroundColor: '#6B7280', padding: '0.25rem', fontSize: '1.25rem', borderRadius: '50%' }} onClick={() => setSideDir('right')} color="white" />
+      }
+      <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column', marginTop: '0.75rem', gap: '2rem' }}>
+        <Link style={{ color: '#D1D5DB' }} href={'/'}>
+          <IoHome color={pathname === '/' ? 'blue' : 'white'} style={{ cursor: 'pointer' }} size={22} />
+        </Link>
+        <Link style={{ color: '#D1D5DB' }} href={'/tablepag'}>
+          <PiTableDuotone color={pathname === '/tablepag' ? 'blue' : 'white'} style={{ cursor: 'pointer' }} size={22} />
+        </Link>
+        <Link style={{ color: '#D1D5DB' }} href={'/calander'}>
+          <BiSolidCalendarCheck color={pathname === '/calander' ? 'blue' : 'white'} style={{ cursor: 'pointer' }} size={22} />
+        </Link>
+      </div>
     </div>
+  
+    <div onClick={(ev) => ev.preventDefault()} style={{ padding: '0.75rem', left: 0, zIndex: 0, position: 'fixed', width: '60%', height: '100vh', paddingLeft: '3rem', backgroundColor: '#93C5FD', transition: 'all 1s', transform: sideDir === 'right' ? 'translateX(-100%)' : 'translateX(0)', maxWidth: '60%' }}>
+  <div>
+    <div style={{ backgroundColor: '#22D3EE', borderRadius: '9999px', padding: '0.75rem', display: 'flex', gap: '0.75rem', alignItems: 'center', marginTop: '0.5rem', cursor: 'pointer' }}><IoSettingsOutline />Setting</div>
+    <div style={{ backgroundColor: '#22D3EE', borderRadius: '9999px', padding: '0.75rem', display: 'flex', gap: '0.75rem', alignItems: 'center', marginTop: '0.5rem', cursor: 'pointer' }}><IoSettingsOutline />Setting</div>
+    <div style={{ backgroundColor: '#22D3EE', borderRadius: '9999px', padding: '0.75rem', display: 'flex', gap: '0.75rem', alignItems: 'center', marginTop: '0.5rem', cursor: 'pointer' }}><IoSettingsOutline />Setting</div>
+    <div style={{ backgroundColor: '#22D3EE', borderRadius: '9999px', padding: '0.75rem', display: 'flex', gap: '0.75rem', alignItems: 'center', marginTop: '0.5rem', cursor: 'pointer' }}><IoSettingsOutline />Setting</div>
+    <div style={{ backgroundColor: '#22D3EE', borderRadius: '9999px', padding: '0.75rem', display: 'flex', gap: '0.75rem', alignItems: 'center', marginTop: '0.5rem', cursor: 'pointer' }}><IoSettingsOutline />Setting</div>
+  </div>
+</div>
+
     </aside>
   )
 }

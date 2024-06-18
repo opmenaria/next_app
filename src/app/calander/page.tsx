@@ -95,19 +95,16 @@ export default function CalendarPage() {
     const hasReminder = data.find((el) => el.date == currentDate)?.reminder;
     return (
       <>
-        <div className='flex items-center gap-2 cursor-pointer' onClick={() => setOpenModal(true)}>
-          <PiNotePencilLight color='blue' size={18} /> Add Event
-        </div>
-        <Popconfirm
-          title="Reminder"
-          description={`Want to ${hasReminder ? 'remove' : 'add'} reminder?`}
-          onConfirm={() => addReminder(hasReminder)}
-          okText="Yes"
-          cancelText="No"
-          className='flex items-center gap-2 cursor-pointer mt-2'
-        >
-          <BsAlarm color='blue' size={18} /> {hasReminder ? 'Remove Reminder' : 'Add Reminder'}
-        </Popconfirm>
+      <Popconfirm
+        title="Reminder"
+        description={`Want to ${hasReminder ? 'remove' : 'add'} reminder?`}
+        onConfirm={() => addReminder(hasReminder)}
+        okText="Yes"
+        cancelText="No"
+        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', marginTop: '0.5rem' }}
+      >
+        <BsAlarm color='blue' style={{ fontSize: '1.125rem' }} /> {hasReminder ? 'Remove Reminder' : 'Add Reminder'}
+      </Popconfirm>
       </>
     );
   };
@@ -116,21 +113,25 @@ export default function CalendarPage() {
     const currentDate = val.date();
     const dayData:any = data.find((el) => el.date == currentDate) || { events: [],  date: '',      reminder:false };
     return (
-      <div className={`w-auto h-36 border-2 overflow-hidden p-2 ml-1 mt-1 rounded-md ${dayData.reminder ? 'bg-orange-300' : value.date() === val.date() && 'bg-cyan-100'}`}>
-        <div className='flex justify-between bg-indigo-100 p-1 items-center rounded-md'>
-          <Popover content={popContent} trigger="click">
+<div style={{ width: 'auto', height: '9rem', border: '2px solid transparent', overflow: 'hidden', padding: '0.5rem', marginLeft: '0.25rem', marginTop: '0.25rem', borderRadius: '0.375rem', backgroundColor: dayData.reminder ? '#f7c97c' : (value.date() === val.date() ? '#cefbff' : '#ebebeb')
+}}>
+<div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: '#9d97ff', padding: '0.25rem', alignItems: 'center', borderRadius: '0.375rem' }}>          <Popover content={popContent} trigger="click">
             <BiPlusCircle />
           </Popover>
           <div>{val.date()}</div>
         </div>
         {dayData?.events?.length > 0 && (
-          <ul className='h-24 overflow-y-auto scrollbar-thin' style={{ scrollbarWidth: 'thin' }}>
-            {dayData.events.map((item:EventType, index:number) => (
-              <li className='flex justify-left w-full' key={index}>
-                <Badge status={item.type as BadgeProps['status']} text={item.content} />
-              </li>
-            ))}
-          </ul>
+  <ul style={{
+    height: '6rem',
+    overflowY: 'auto',
+    scrollbarWidth: 'thin'
+  }}>
+    {dayData.events.map((item: EventType, index: number) => (
+      <li style={{ display: 'flex', justifyContent: 'left', width: '100%' }} key={index}>
+        <Badge status={item.type as BadgeProps['status']} text={item.content} />
+      </li>
+    ))}
+  </ul>
         )}
       </div>
     );
@@ -155,11 +156,11 @@ export default function CalendarPage() {
   const monthCellRender = (val: Dayjs) => {
     const monthName = val.format('MMMM');
     return (
-      <div className={`w-auto h-36 border-2 overflow-hidden p-2 ml-1 mt-1 rounded-md ${value.month() === val.month() && 'bg-cyan-100'}`}>
-        <div className='flex justify-between bg-indigo-100 p-1 items-center rounded-md'>
-          <div>{monthName}</div>
-        </div>
+      <div style={{ width: 'auto', height: '9rem', border: '2px solid', overflow: 'hidden', padding: '0.5rem', marginLeft: '0.25rem', marginTop: '0.25rem', borderRadius: '0.375rem', backgroundColor: value.month() === val.month() ? '#C3DAFE' : 'transparent' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', backgroundColor: '#9d97ff', padding: '0.25rem', alignItems: 'center', borderRadius: '0.375rem' }}>
+        <div>{monthName}</div>
       </div>
+    </div>
     );
   };
 
@@ -169,38 +170,40 @@ export default function CalendarPage() {
         return info.originNode;
       };
   return (
-    <div className='p-3 z-20'>
-      <div className='flex justify-between items-center mb-6 bg-sky-400 p-1 rounded-md'>
-        <p className='ml-5 text-2xl'>Calendar</p>
-        <div className='flex items-center gap-2'>
-            <Button type='primary' onClick={()=>onSelect(dayjs())}>
-                Today
-            </Button>
-        <Alert className=' text-green-700 font-bold' message={`Selected date: ${selectedValue?.format('YYYY-MM-DD')}`} />
-        </div>
+    <div style={{ padding: '0.75rem', zIndex: 20 }}>
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', backgroundColor: '#93C5FD', padding: '0.25rem', borderRadius: '0.375rem' }}>
+      <p style={{ marginLeft: '1.25rem', fontSize: '1.5rem' }}>Calendar</p>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <button style={{ backgroundColor: '#2563EB', color: '#ffffff', padding: '0.5rem 1rem', border: 'none', borderRadius: '0.375rem' }} onClick={() => onSelect(dayjs())}>
+          Today
+        </button>
+        <div style={{ color: '#059669', fontWeight: '700' }}>Selected date: {selectedValue?.format('YYYY-MM-DD')}</div>
       </div>
+    </div>
+  
 
-      <div className='flex justify-center flex-col'>
-        <Spin spinning={loading}>
-          <Modal
-            title={'Add Event'}
-            open={openModal}
-            zIndex={1100}
-            footer={null}
-            onCancel={() => setOpenModal(false)}
-            destroyOnClose
-          >
-            <DumyForm  onSubmit={onSubmit} rowRef={rowRef} columns={columns}  />
-          </Modal>
-          <Calendar
-            className='rounded-lg'
-            onSelect={onSelect}
-            onPanelChange={onPanelChange}
-            value={value}
-            fullCellRender={cellRender}
-          />
-        </Spin>
-      </div>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+  <Spin spinning={loading}>
+    <Modal
+      title={'Add Event'}
+      open={openModal}
+      style={{ zIndex: 1100 }}
+      footer={null}
+      onCancel={() => setOpenModal(false)}
+      destroyOnClose
+    >
+      <DumyForm onSubmit={onSubmit} rowRef={rowRef} columns={columns} />
+    </Modal>
+    <Calendar
+      style={{ borderRadius: '0.75rem' }}
+      onSelect={onSelect}
+      onPanelChange={onPanelChange}
+      value={value}
+      fullCellRender={cellRender}
+    />
+  </Spin>
+</div>
+
     </div>
   )
 }
