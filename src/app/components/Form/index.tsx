@@ -66,7 +66,6 @@ interface tabDataType {
           options={(calOptions).map((item:string) => ({ label: item, value: item }))}
         />
           :<Input />}
-
         </Form.Item>
     })}
     <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 8 }}>
