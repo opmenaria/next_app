@@ -41,6 +41,7 @@ export default function TablePage() {
       setData(updatedData);
       setLoading(false);
     }, 1000);
+    
   }
   const handleEdit = (evv: tablDataType) => {
     rowRef.current = evv;
