@@ -46,6 +46,7 @@ export default function TablePage() {
     rowRef.current = evv;
     setOpnModl(true);
   }
+  
 const columns: TableProps<tablDataType>['columns'] = [
   {
     title: 'Donor',
